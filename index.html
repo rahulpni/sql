@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Static Webpage with SQL</title>
+</head>
+<body>
+    <h1>User List</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody id="user-table-body">
+            <!-- Data will be inserted here -->
+        </tbody>
+    </table>
+
+    <script>
+        fetch('get_users.php')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('user-table-body');
+                data.forEach(user => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `<td>${user.id}</td><td>${user.name}</td><td>${user.email}</td>`;
+                    tableBody.appendChild(row);
+                });
+            });
+    </script>
+</body>
+</html>
